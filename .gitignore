@@ -1,0 +1,29 @@
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pytest
+.pytest_cache/
+
+# System and editor
+.DS_Store
+Thumbs.db
+.vscode/
+.cursor/
+*.swp
+*~
+
+# Archives
+*.zip
+*.tar.gz
+
+# Runtime temporary data
+fixtures/
+validation/LATEST_RESULTS.json

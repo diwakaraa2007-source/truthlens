@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TruthLens — local multimodal screening prototype</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top HUD Header -->
+  <header class="hud-header">
+    <div class="brand-wrapper">
+      <div class="logo-radar">
+        <div class="logo-radar-blip"></div>
+      </div>
+      <div>
+        <div class="brand-title">TRUTHLENS</div>
+        <div class="brand-subtitle">Local image, video, audio, and text screening</div>
+      </div>
+    </div>
+
+    <div class="hud-badges">
+      <div class="badge badge-online">
+        <span class="badge-dot"></span>
+        <span id="engine-badge">LOCAL PROTOTYPE</span>
+      </div>
+      <div class="badge badge-trust">
+        <span>UNVALIDATED HEURISTICS</span>
+      </div>
+      <div class="badge" style="background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3); color: #c084fc;">
+        <span>HUMAN REVIEW REQUIRED</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Workflow Navigation Bar -->
+  <nav class="workflow-nav">
+    <button class="nav-tab-btn active" data-tab="ingest">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <span>1. Ingest & Cases</span>
+      <span class="tab-badge">Intake</span>
+    </button>
+    <button class="nav-tab-btn" data-tab="image">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span>2. Image Lab</span>
+      <span class="tab-badge">ELA / FFT</span>
+    </button>
+    <button class="nav-tab-btn" data-tab="video">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      <span>3. Video Forensics</span>
+      <span class="tab-badge">Temporal</span>
+    </button>
+    <button class="nav-tab-btn" data-tab="audio">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      <span>4. Audio & Voice</span>
+      <span class="tab-badge">Spectral</span>
+    </button>
+    <button class="nav-tab-btn" data-tab="text">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <span>5. Text & Claims</span>
+      <span class="tab-badge">Context</span>
+    </button>
+    <button class="nav-tab-btn" data-tab="crossmodal">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      <span>6. Cross-Modal Fusion</span>
+      <span class="tab-badge">Synthesis</span>
+    </button>
+    <button class="nav-tab-btn" data-tab="report">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+      <span>7. Forensic Report</span>
+      <span class="tab-badge">Review</span>
+    </button>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- 3D Holographic Cockpit Banner -->
+    <div class="hologram-hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="badge-dot"></span>
+            <span>LOCAL SCREENING PROTOTYPE</span>
+          </div>
+          <h1 class="hero-title">Multimodal screening for human review</h1>
+          <p class="hero-desc">
+            TruthLens measures uploaded bytes with local heuristics and keeps each measurement separate from a conclusion. The conclusion on every report is Indicators for human review. Learned detectors are not bundled, and no overall real/fake probability is produced.
+          </p>
+
+          <div class="hero-stats">
+            <div class="stat-box">
+              <div class="stat-val" id="hero-verdict-val">REVIEW</div>
+              <div class="stat-label">Report label</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" id="hero-score-val">0</div>
+              <div class="stat-label">Files in this intake</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" id="hero-indicators-val">0</div>
+              <div class="stat-label">Rules exceeded</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" style="color: var(--neon-green);">SHA-256</div>
+              <div class="stat-label">Byte identity only</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Interactive Canvas -->
+        <div class="canvas-3d-wrapper">
+          <canvas id="three-canvas"></canvas>
+          <div class="scanner-overlay-controls">
+            <button class="mini-btn" id="btn-toggle-scan">Scan Speed</button>
+            <button class="mini-btn" id="btn-toggle-mode">Wireframe</button>
+            <button class="mini-btn" id="btn-reset-cam">Reset 3D</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cursor-linked 3D ring of every forensic module -->
+    <section class="orbit-stage" id="orbit-stage" aria-label="Rotating forensic modules">
+      <div class="orbit-hud">
+        <span class="hero-tag"><span class="badge-dot"></span> CURSOR-LINKED 3D MODULE RING</span>
+        <span class="orbit-readout" id="orbit-readout">MOVE TO ORBIT · CLICK A FACE TO OPEN</span>
+      </div>
+      <div class="orbit-scene">
+        <div class="orbit-ring" id="orbit-ring"></div>
+      </div>
+    </section>
+
+    <!-- TAB 1: INGESTION & PRESET CASES -->
+    <div class="tab-panel active" id="tab-ingest">
+
+      <!-- Preset Case Studies Section -->
+      <div class="forensic-card">
+        <div class="forensic-card-header">
+          <div>
+            <div class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              Generated fixtures
+            </div>
+            <div class="card-subtitle">Every card is a SIMULATION / GENERATED FIXTURE. Running one analyzes that fixture file with the same code used for uploads. The card itself stores no measurements.</div>
+          </div>
+        </div>
+
+        <div class="preset-grid" id="preset-cases-grid">
+          <!-- Dynamically populated by cases.js -->
+        </div>
+      </div>
+
+      <!-- Custom Evidence Ingestion Section -->
+      <div class="forensic-card">
+        <div class="forensic-card-header">
+          <div>
+            <div class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Custom Evidence Intake Matrix
+            </div>
+            <div class="card-subtitle">Image, video, PCM WAV, and text. 20 MB combined. Files stay in memory for this request, are not saved, and are not sent to an external model service. SHA-256 identifies the bytes only.</div>
+          </div>
+        </div>
+
+        <form id="custom-ingest-form">
+          <div style="margin-bottom: 16px;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Case Identification (Optional)</label>
+            <input type="text" id="input-custom-case-id" placeholder="e.g. CASE-2026-X892" style="width: 100%; max-width: 320px; background: rgba(10, 16, 26, 0.8); border: 1px solid var(--border-color); color: #fff; padding: 8px 12px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.84rem; outline: none; margin-top: 4px; display: block;" />
+          </div>
+
+          <div class="upload-matrix">
+            <!-- Image Dropzone -->
+            <div class="dropzone-box" id="drop-image">
+              <input type="file" id="input-image" accept="image/*" style="display: none;" />
+              <div class="dropzone-icon">🖼️</div>
+              <div class="dropzone-title">Image Evidence</div>
+              <div class="dropzone-hint">PNG, JPEG, WEBP, GIF. Error-level contrast, Fourier peak ratio, high-pass residual, EXIF presence. Not a face-swap or AI-image classifier.</div>
+              <div class="file-chosen-status" id="status-image"></div>
+            </div>
+
+            <!-- Video Dropzone -->
+            <div class="dropzone-box" id="drop-video">
+              <input type="file" id="input-video" accept="video/mp4,video/webm,video/avi,.mp4,.webm,.avi,.mov,.gif,.webp" style="display: none;" />
+              <div class="dropzone-icon">🎥</div>
+              <div class="dropzone-title">Video Evidence</div>
+              <div class="dropzone-hint">MP4, AVI, WEBM, MOV, GIF, and animated WEBP video screening operational via OpenCV &amp; Pillow. Decodes a copy, samples frames, and computes inter-frame difference with source timestamps. Not temporal deepfake detection.</div>
+              <div class="file-chosen-status" id="status-video"></div>
+            </div>
+
+            <!-- Audio Dropzone -->
+            <div class="dropzone-box" id="drop-audio">
+              <input type="file" id="input-audio" accept=".wav,audio/wav,audio/x-wav" style="display: none;" />
+              <div class="dropzone-icon">🎙️</div>
+              <div class="dropzone-title">Audio / Voice Stream</div>
+              <div class="dropzone-hint">16-bit PCM WAV. Spectral energy and level jumps. Not an audio-spoof classifier.</div>
+              <div class="file-chosen-status" id="status-audio"></div>
+            </div>
+          </div>
+
+          <!-- Text / Transcript Field -->
+          <div style="margin-bottom: 20px;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Statement</label>
+            <textarea class="cyber-textarea" id="input-transcript" placeholder="First text. Token overlap is lexical, not semantic."></textarea>
+            <label style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; display: block; margin-top: 12px;">Comparison text</label>
+            <textarea class="cyber-textarea" id="input-comparison" placeholder="Second text. One shared word is not treated as a match, and different wording is not treated as a contradiction."></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end;">
+            <button type="submit" class="btn" style="padding: 12px 28px; font-size: 0.95rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Run local screening
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- TAB 2: IMAGE FORENSICS LAB -->
+    <div class="tab-panel" id="tab-image">
+      <div id="image-inspector-container">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+          No image evidence currently loaded. Launch a preset case study from Tab 1 or upload custom media.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: VIDEO & TEMPORAL STUDIO -->
+    <div class="tab-panel" id="tab-video">
+      <div id="video-inspector-container">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+          No video is loaded. Upload a supported video or run a generated GIF fixture. An unsupported container is reported as unsupported, not as a clean file.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: AUDIO & SPECTRUM LAB -->
+    <div class="tab-panel" id="tab-audio">
+      <div id="audio-inspector-container">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+          No audio evidence currently loaded. Launch a preset case study from Tab 1 or upload custom media.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: TEXT & CLAIMS -->
+    <div class="tab-panel" id="tab-text">
+      <div id="text-inspector-container">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+          No textual transcript or contextual claims currently loaded.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: CROSS-MODAL FUSION -->
+    <div class="tab-panel" id="tab-crossmodal">
+      <div id="crossmodal-inspector-container">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+          Load a multimodal evidence case to inspect the cross-modal relational matrix.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 7: STRUCTURED FORENSIC REPORT -->
+    <div class="tab-panel" id="tab-report">
+      <div id="report-container">
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+          No forensic report generated yet. Execute an analysis to produce the full audit report.
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="radar-spinner"></div>
+    <div class="loading-text" id="loading-text">Screening a copy of the submitted bytes...</div>
+    <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Original bytes stay in memory. A video copy is deleted before the report returns.</div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/three-scene.js"></script>
+  <script src="js/findings.js"></script>
+  <script src="js/cases.js"></script>
+  <script src="js/report.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/orbit-ui.js"></script>
+</body>
+</html>
